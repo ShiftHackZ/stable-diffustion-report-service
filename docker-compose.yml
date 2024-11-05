@@ -1,0 +1,26 @@
+services:
+  app:
+    build: ./app
+    ports:
+      - "20003:5000"
+    environment:
+      MYSQL_HOST: db
+      MYSQL_USER: PLACEHOLDER_USER
+      MYSQL_PASSWORD: PLACEHOLDER_PASSWORD
+      MYSQL_DATABASE: PLACEHOLDER_DB
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    ports:
+      - "30003:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: PLACEHOLDER_PASSWORD_ROOT
+      MYSQL_DATABASE: PLACEHOLDER_DB
+      MYSQL_USER: PLACEHOLDER_USER
+      MYSQL_PASSWORD: PLACEHOLDER_PASSWORD
+    volumes:
+      - ./db:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      
